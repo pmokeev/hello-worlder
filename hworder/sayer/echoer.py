@@ -6,4 +6,4 @@ class Echoer:
         pass
 
     def __call__(self, value: str):
-        return value
+        return f"{value}, {value}"
