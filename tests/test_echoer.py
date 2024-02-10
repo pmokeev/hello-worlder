@@ -19,4 +19,4 @@ def test_echoer(
 ):
     echoer = Echoer()
 
-    assert value == echoer(value)
+    assert f"{value}, {value}" == echoer(value)
