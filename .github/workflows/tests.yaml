@@ -31,6 +31,7 @@ jobs:
 
   publish-to-test-pypi:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+    needs: tests
 
     strategy:
       matrix:
@@ -58,4 +59,4 @@ jobs:
           poetry version $(git describe --tags --abbrev=0)
           poetry config repositories.test-pypi https://test.pypi.org/legacy/
           poetry config pypi-token.test-pypi ${{ secrets.TEST_PYPI_TOKEN }}
-          poetry publish --build
+          poetry publish -r test-pypi --build
