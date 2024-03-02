@@ -29,7 +29,7 @@ jobs:
         run: |
           python -m pytest tests/
 
-  build:
+  publish-to-test-pypi:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
 
     strategy:
@@ -56,5 +56,6 @@ jobs:
       - name: Publish to PyPI
         run: |
           poetry version $(git describe --tags --abbrev=0)
-          poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
+          poetry config repositories.test-pypi https://test.pypi.org/legacy/
+          poetry config pypi-token.test-pypi ${{ secrets.TEST_PYPI_TOKEN }}
           poetry publish --build
